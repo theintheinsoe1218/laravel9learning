@@ -57,3 +57,5 @@ Route::get('/products',[ProductController::class,'index']);
 // });
 
 Route::view('/products','products.index');
+
+Route::view('/test','test');

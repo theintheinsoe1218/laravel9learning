@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Products\ProductController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,14 +20,40 @@ Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 
-Route::get('/users/{id?}/post/{article_name?}',function($id=null,$article_name="None"){
-    return "This is user page for $id and $article_name";
-})->whereNumber('id')->whereAlpha('article_name');
+// Route::get('/users/{id?}/post/{article_name?}',function($id=null,$article_name="None"){
+//     return "This is user page for $id and $article_name";
+// })->whereNumber('id')->whereAlpha('article_name');
 
-Route::get('/products',function(){
-    return "This is products page";
-})->name('products');
+// Route::get('/products',function(){
+//     return "This is products page";
+// })->name('products');
 
-Route::get('/search',function(){
-    return to_route('welcome');
+// Route::get('/search',function(){
+//     return to_route('welcome');
+// });
+
+// Route::get('/users',[UserController::class,'index']);
+// Route::get('users/{name}',[UserController::class,'show']);
+
+// Route::controller(UserController::class)->group(function(){
+//     Route::get('/users','index');
+//     Route::get('/users/{name}','show');
+// });
+
+Route::name('users.')->group(function(){
+    Route::get('/users',[UserController::class,'index']);
+    Route::get('/users/{name}',[UserController::class,'show']);
 });
+
+Route::prefix('admin')->group(function(){
+    Route::get('/dashboard',[AdminController::class,'dashboard']);
+});
+
+
+Route::get('/products',[ProductController::class,'index']);
+
+// Route::get('/products',function(){
+//     return view('products.index');
+// });
+
+Route::view('/products','products.index');

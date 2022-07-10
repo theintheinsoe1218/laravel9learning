@@ -13,15 +13,26 @@
                         <h1>Blog Form</h1>
                     </div>
                     <div class="card-body">
+                        {{-- @if ($errors)
+                            @foreach ($errors->all() as $error)
+                                <div class="alert alert-danger">{{ $error }}</div>
+                            @endforeach
+                        @endif --}}
                         <form action="{{ route('blog.store') }}" method="post" class="p-3">
                             @csrf
                             <div class="mb-3">
                                 <label for="title" class="form-label">Email address</label>
-                                <input type="text" name="title" class="form-control" id="title" placeholder="Blog Title">
+                                <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" id="title" placeholder="Blog Title">
+                                @error('title')
+                                    <p class="text-danger">{{ $message }}</p>
+                                @enderror
                             </div>
                             <div class="mb-3">
                                 <label for="desc" class="form-label">Blog Description</label>
-                                <textarea name="desc" class="form-control" id="desc" rows="3"></textarea>
+                                <textarea name="desc" class="form-control @error('desc') is-invalid @enderror" id="desc" rows="3"></textarea>
+                                @error('desc')
+                                    <p class="text-danger">{{ $message }}</p>
+                                @enderror
                             </div>
                             <button type="submit" class="btn btn-dark">Submit</button>
                         </form>
@@ -30,8 +41,4 @@
             </div>
         </div>
     </div>
-@endsection
-
-@section('footer')
-    @parent
 @endsection

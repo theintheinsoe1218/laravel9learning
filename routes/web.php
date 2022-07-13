@@ -75,3 +75,11 @@ Route::controller(LangController::class)->group(function(){
     Route::get('/lang/change', 'change');
 
 });
+
+Route::get('/fluent',function(){
+    // $result=str('How Are You?')->lower();
+    // $result = str('How Are You?')->upper();
+    $result = str('How Are You?')->after('How');
+
+    return $result;
+});

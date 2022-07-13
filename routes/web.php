@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\LangController;
 use App\Http\Controllers\Products\ProductController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -66,3 +67,11 @@ Route::view('/about','about')->name( 'about');
 Route::view('/contact', 'contact')->name('contact');
 
 Route::post('/blog',[BlogController::class,'store'])->name('blog.store');
+
+Route::controller(LangController::class)->group(function(){
+    Route::get('/lang/show', 'show');
+    Route::get('/lang/store','store');
+    Route::get('/lang/delete', 'delete');
+    Route::get('/lang/change', 'change');
+
+});

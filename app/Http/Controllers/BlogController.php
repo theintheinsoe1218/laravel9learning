@@ -30,8 +30,8 @@ class BlogController extends Controller
         // return $request->url();
         // return $request->bearerToken();
         // return $request->ip();
-
-        return $title.$desc;
+        session()->flash('success','Blog Created Successfully');
+        return redirect('about');
 
 
 

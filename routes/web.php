@@ -62,9 +62,13 @@ use Illuminate\Support\Facades\Route;
 
 // Route::view('/test','test');
 
-Route::view('/','home')->name( 'home');
-Route::view('/about','about')->name( 'about');
-Route::view('/contact', 'contact')->name('contact');
+Route::middleware('admin')->group(function(){
+    Route::view('/', 'home')->name('home');
+    Route::view('/about', 'about')->name('about');
+    Route::view('/contact', 'contact')->name('contact');
+});
+
+
 
 Route::post('/blog',[BlogController::class,'store'])->name('blog.store');
 

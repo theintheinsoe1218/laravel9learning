@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\LangController;
 use App\Http\Controllers\Products\ProductController;
+use App\Http\Controllers\StudentController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -86,4 +87,8 @@ Route::get('/fluent',function(){
     $result = str('How Are You?')->after('How');
 
     return $result;
+});
+
+Route::controller(StudentController::class)->group(function(){
+    Route::get('/students','index')->name('students.index');
 });

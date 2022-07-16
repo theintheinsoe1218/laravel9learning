@@ -25,7 +25,7 @@ class StudentController extends Controller
      */
     public function create()
     {
-        //
+        return view('students.create');
     }
 
     /**
@@ -36,7 +36,17 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validate=$request->validate([
+            'name'=>'required|min:3',
+            'email'=>'required|email'
+        ]);
+
+        DB::table('students')->insert([
+            'name'=>$request->name,
+            'email'=>$request->email
+        ]);
+        session()->flash('success','Student Created Successfully');
+        return to_route('students.index');
     }
 
     /**
@@ -47,7 +57,8 @@ class StudentController extends Controller
      */
     public function show($id)
     {
-        //
+        $student=DB::table('students')->find($id);
+        return view('students.show',['student'=>$student]);
     }
 
     /**
@@ -58,7 +69,8 @@ class StudentController extends Controller
      */
     public function edit($id)
     {
-        //
+        $student=DB::table('students')->find($id);
+        return view('students.edit',['student'=>$student]);
     }
 
     /**
@@ -70,7 +82,17 @@ class StudentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validate=$request->validate([
+            'name'=>'required|min:3',
+            'email'=>'required|email'
+        ]);
+        DB::table('students')->where('id',$id)->update([
+            'name'=>$request->name,
+            'email'=>$request->email
+        ]);
+
+        session()->flash('success','Student updated Successfully');
+        return to_route('students.index');
     }
 
     /**
@@ -81,6 +103,9 @@ class StudentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        DB::table('students')->where('id',$id)->delete();
+        session()->flash('success', 'Student Deleted Successfully');
+        return to_route('students.index');
+
     }
 }

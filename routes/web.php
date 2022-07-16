@@ -91,4 +91,11 @@ Route::get('/fluent',function(){
 
 Route::controller(StudentController::class)->group(function(){
     Route::get('/students','index')->name('students.index');
+    Route::get('/students/create', 'create')->name('students.create');
+    Route::post('/students/create', 'store')->name('students.store');
+    Route::get('/students/show/{id}','show')->name('students.show');
+    Route::get('/students/edit/{id}','edit')->name('students.edit');
+    Route::post('/students/edit/{id}', 'update')->name(
+    'students.update');
+    Route::get('/students/delete/{id}', 'destroy')->name('students.destroy');
 });
